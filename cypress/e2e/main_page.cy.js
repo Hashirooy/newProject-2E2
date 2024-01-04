@@ -1,3 +1,5 @@
+import "cypress-real-events";
+
 describe("Login Page", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
@@ -5,24 +7,27 @@ describe("Login Page", () => {
   it("Open login page.", () => {
     cy.get("#QAdeals").should("have.text", "Deals");
   });
-  it("Create plan.", () => {
-    CreatePlan("Monday");
-    CreatePlan("Wendesday");
-    CreatePlan("Monday");
-    CreatePlan("Tuesday");
-    CreatePlan("Tuesday");
-    CreatePlan("Tuesday");
-  });
-
   it("Drag andDrop", () => {
     CreatePlan("Tuesday");
     CreatePlan("Tuesday");
     CreatePlan("Tuesday");
-    cy.get(
-      "#root > div > div.layout__main > div.layout__main-content > div > div.page__kanban > div.page__kanban-days > div:nth-child(2) > div > div > div:nth-child(1)"
-    )
-      .trigger("mousedown")
-      .trigger("mousemove", { clientX: 200, clientY: 300 });
+    cy.get("#data-test-card")
+      .trigger("mousedown", {
+        clientX: 589,
+        clientY: 369,
+        button: 0,
+        force: true,
+      })
+      .trigger("mousemove", {
+        clientX: 589,
+        clientY: 569,
+        button: 0,
+        force: true,
+      })
+      .trigger("mouseup", {
+        button: 0,
+        force: true,
+      });
   });
 });
 
